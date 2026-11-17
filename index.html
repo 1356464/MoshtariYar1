@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مشتری‌یار | سامانه جامع مدیریت و پیامک</title>
+    <title>مشتری‌یار۱</title>
     <!-- Tailwind CSS & FontAwesome Icons -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -12,68 +12,68 @@
         body { font-family: 'Vazirmatn', sans-serif; }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-800 pb-20">
+<body class="bg-[#0f172a] text-slate-100 pb-20">
 
     <!-- Header -->
-    <header class="bg-blue-600 text-white p-4 shadow-md sticky top-0 z-50">
+    <header class="bg-[#1e293b] text-white p-4 shadow-md sticky top-0 z-50 border-b border-slate-700">
         <div class="container mx-auto flex justify-between items-center">
             <h1 class="text-xl font-bold flex items-center gap-2">
-                <i class="fa-solid fa-users-gear"></i> مشتری‌یار
+                <i class="fa-solid fa-users-gear text-blue-500"></i> مشتری‌یار۱
             </h1>
-            <span class="text-xs bg-blue-700 px-3 py-1 rounded-full" id="sms-credit">اعتبار پنل: در حال دریافت...</span>
+            <span class="text-xs bg-blue-600/30 text-blue-400 border border-blue-500/30 px-3 py-1 rounded-full" id="sms-credit">پنل: در انتظار تنظیمات</span>
         </div>
     </header>
 
     <!-- Main Container -->
-    <main class="container mx-auto p-4 max-w-lg">
+    <main class="container mx-auto p-4 max-w-lg space-y-6">
 
         <!-- API Settings (پنل پیامک) -->
-        <section class="bg-white p-4 rounded-2xl shadow-sm mb-6">
-            <h2 class="font-bold text-lg mb-3 flex items-center gap-2 text-blue-600">
-                <i class="fa-solid fa-key"></i> تنظیمات پنل پیامک (ملی‌پیامک)
+        <section class="bg-[#1e293b] p-4 rounded-2xl border border-slate-800 shadow-lg">
+            <h2 class="font-bold text-lg mb-3 flex items-center gap-2 text-blue-400">
+                <i class="fa-solid fa-key"></i> تنظیمات پنل ملی‌پیامک (ایران)
             </h2>
             <div class="space-y-3">
                 <div>
-                    <label class="block text-xs text-gray-500 mb-1">نام کاربری ملی‌پیامک</label>
-                    <input type="text" id="api-username" placeholder="مثال: melipayamak_user" class="w-full p-2 border rounded-lg text-sm">
+                    <label class="block text-xs text-slate-400 mb-1">نام کاربری ملی‌پیامک</label>
+                    <input type="text" id="api-username" placeholder="نام کاربری پنل شما" class="w-full p-2.5 bg-slate-900 border border-slate-700 rounded-lg text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-blue-500">
                 </div>
                 <div>
-                    <label class="block text-xs text-gray-500 mb-1">رمز عبور / کلمه عبور API</label>
-                    <input type="password" id="api-password" placeholder="******" class="w-full p-2 border rounded-lg text-sm">
+                    <label class="block text-xs text-slate-400 mb-1">رمز عبور یا کلید API</label>
+                    <input type="password" id="api-password" placeholder="******" class="w-full p-2.5 bg-slate-900 border border-slate-700 rounded-lg text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-blue-500">
                 </div>
                 <div>
-                    <label class="block text-xs text-gray-500 mb-1">شماره اختصاصی ارسال (خط اختصاصی)</label>
-                    <input type="text" id="api-number" placeholder="مثال: 5000..." class="w-full p-2 border rounded-lg text-sm">
+                    <label class="block text-xs text-slate-400 mb-1">شماره اختصاصی ارسال پیامک</label>
+                    <input type="text" id="api-number" placeholder="مثال: 50002040" class="w-full p-2.5 bg-slate-900 border border-slate-700 rounded-lg text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-blue-500">
                 </div>
-                <button onclick="saveApiSettings()" class="w-full bg-blue-600 text-white p-2 rounded-lg text-sm font-bold hover:bg-blue-700">ذخیره تنظیمات پنل</button>
+                <button onclick="saveApiSettings()" class="w-full bg-blue-600 text-white p-2.5 rounded-lg text-sm font-bold hover:bg-blue-700 active:scale-95 transition">ذخیره تنظیمات پنل</button>
             </div>
         </section>
 
         <!-- Quick SMS Send -->
-        <section class="bg-white p-4 rounded-2xl shadow-sm mb-6">
-            <h2 class="font-bold text-lg mb-3 flex items-center gap-2 text-indigo-600">
+        <section class="bg-[#1e293b] p-4 rounded-2xl border border-slate-800 shadow-lg">
+            <h2 class="font-bold text-lg mb-3 flex items-center gap-2 text-indigo-400">
                 <i class="fa-solid fa-paper-plane"></i> ارسال پیامک
             </h2>
             
-            <div class="flex gap-2 mb-4 bg-gray-100 p-1 rounded-lg">
-                <button onclick="switchSmsTab('single')" id="tab-single" class="flex-1 py-2 text-sm rounded-md font-bold bg-white shadow-sm text-indigo-600">انفرادی / گروهی</button>
-                <button onclick="switchSmsTab('regional')" id="tab-regional" class="flex-1 py-2 text-sm rounded-md font-bold text-gray-500">منطقه‌ای</button>
+            <div class="flex gap-2 mb-4 bg-slate-900 p-1 rounded-lg border border-slate-700">
+                <button onclick="switchSmsTab('single')" id="tab-single" class="flex-1 py-2 text-sm rounded-md font-bold bg-blue-600 text-white shadow-sm transition">انفرادی / گروهی</button>
+                <button onclick="switchSmsTab('regional')" id="tab-regional" class="flex-1 py-2 text-sm rounded-md font-bold text-slate-400 transition">منطقه‌ای (سیستان و بلوچستان)</button>
             </div>
 
             <!-- Single/Group SMS -->
             <div id="sms-single-panel" class="space-y-3">
                 <div>
-                    <label class="block text-xs text-gray-500 mb-1">شماره(های) دریافت‌کننده (با ویرگول جدا کنید)</label>
-                    <textarea id="sms-targets" rows="2" placeholder="09123456789, 09120000000" class="w-full p-2 border rounded-lg text-sm"></textarea>
+                    <label class="block text-xs text-slate-400 mb-1">شماره(های) دریافت‌کننده (با کاما "," یا فاصله جدا کنید)</label>
+                    <textarea id="sms-targets" rows="2" placeholder="09151234567, 09158765432" class="w-full p-2.5 bg-slate-900 border border-slate-700 rounded-lg text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-indigo-500"></textarea>
                 </div>
                 <div>
-                    <label class="block text-xs text-gray-500 mb-1 font-bold text-green-600 flex justify-between">
+                    <label class="block text-xs text-slate-400 mb-1 font-bold text-emerald-400 flex justify-between">
                         <span>متن پیامک</span>
-                        <span onclick="insertPlaceholder()" class="text-blue-600 cursor-pointer underline">[درج نام مشتری]</span>
+                        <span onclick="insertPlaceholder()" class="text-indigo-400 cursor-pointer hover:underline">[درج نام مشتری]</span>
                     </label>
-                    <textarea id="sms-text" rows="3" placeholder="مشتری گرامی [نام]، خرید شما ثبت شد..." class="w-full p-2 border rounded-lg text-sm"></textarea>
+                    <textarea id="sms-text" rows="3" placeholder="مشتری گرامی [نام]، خرید شما با موفقیت ثبت شد..." class="w-full p-2.5 bg-slate-900 border border-slate-700 rounded-lg text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-indigo-500"></textarea>
                 </div>
-                <button onclick="sendGroupSms()" class="w-full bg-indigo-600 text-white p-2 rounded-lg text-sm font-bold flex justify-center items-center gap-2">
+                <button onclick="sendGroupSms()" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white p-2.5 rounded-lg text-sm font-bold flex justify-center items-center gap-2 transition active:scale-95">
                     <i class="fa-solid fa-share"></i> ارسال پیامک به افراد انتخاب شده
                 </button>
             </div>
@@ -81,43 +81,42 @@
             <!-- Regional SMS -->
             <div id="sms-regional-panel" class="space-y-3 hidden">
                 <div>
-                    <label class="block text-xs text-gray-500 mb-1">انتخاب استان / شهر</label>
-                    <select id="reg-city" class="w-full p-2 border rounded-lg text-sm">
-                        <!-- شهر زابل و مناطق سیستان و بلوچستان به عنوان پیشفرض اول اضافه شدند -->
-                        <option value="zabol">زابل (سیستان و بلوچستان)</option>
+                    <label class="block text-xs text-slate-400 mb-1">انتخاب شهر هدف</label>
+                    <select id="reg-city" class="w-full p-2.5 bg-slate-900 border border-slate-700 rounded-lg text-sm text-slate-100 focus:outline-none focus:border-indigo-500">
+                        <!-- شهر زابل به درخواست شما و بقیه شهرهای منطقه -->
+                        <option value="zabol" selected>زابل (سیستان و بلوچستان)</option>
                         <option value="zahedan">زاهدان (سیستان و بلوچستان)</option>
                         <option value="chabahar">چابهار (سیستان و بلوچستان)</option>
                         <option value="tehran">تهران</option>
                         <option value="mashhad">مشهد</option>
                         <option value="isfahan">اصفهان</option>
                         <option value="shiraz">شیراز</option>
-                        <option value="tabriz">تبریز</option>
                     </select>
                 </div>
                 <div>
-                    <label class="block text-xs text-gray-500 mb-1">پیش‌شماره یا رنج محله (کد پستی ۵ رقم اول)</label>
-                    <input type="text" id="reg-postal" placeholder="مثال: 98616 (کد پستی زابل)" class="w-full p-2 border rounded-lg text-sm">
+                    <label class="block text-xs text-slate-400 mb-1">پیش‌شماره یا رنج محله (کد پستی ۵ رقم اول)</label>
+                    <input type="text" id="reg-postal" placeholder="مثال برای زابل: 98616" class="w-full p-2.5 bg-slate-900 border border-slate-700 rounded-lg text-sm text-slate-100 focus:outline-none focus:border-indigo-500">
                 </div>
                 <div>
-                    <label class="block text-xs text-gray-500 mb-1">تعداد ارسال تصادفی</label>
-                    <input type="number" id="reg-count" value="100" class="w-full p-2 border rounded-lg text-sm">
+                    <label class="block text-xs text-slate-400 mb-1">تعداد ارسال تصادفی</label>
+                    <input type="number" id="reg-count" value="100" class="w-full p-2.5 bg-slate-900 border border-slate-700 rounded-lg text-sm text-slate-100 focus:outline-none">
                 </div>
                 <div>
-                    <label class="block text-xs text-gray-500 mb-1">متن پیامک تبلیغاتی</label>
-                    <textarea id="reg-text" rows="3" placeholder="تخفیف ویژه فروشگاه ما برای اهالی محترم زابل..." class="w-full p-2 border rounded-lg text-sm"></textarea>
+                    <label class="block text-xs text-slate-400 mb-1">متن پیامک تبلیغاتی</label>
+                    <textarea id="reg-text" rows="3" placeholder="تخفیف ویژه فروشگاه ما برای اهالی محترم زابل..." class="w-full p-2.5 bg-slate-900 border border-slate-700 rounded-lg text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-indigo-500"></textarea>
                 </div>
-                <button onclick="sendRegionalSms()" class="w-full bg-indigo-500 text-white p-2 rounded-lg text-sm font-bold">ارسال منطقه‌ای (بانک شماره)</button>
+                <button onclick="sendRegionalSms()" class="w-full bg-indigo-500 hover:bg-indigo-600 text-white p-2.5 rounded-lg text-sm font-bold transition active:scale-95">ارسال منطقه‌ای (بانک شماره)</button>
             </div>
         </section>
 
         <!-- Customer & Contacts Management -->
-        <section class="bg-white p-4 rounded-2xl shadow-sm mb-6">
+        <section class="bg-[#1e293b] p-4 rounded-2xl border border-slate-800 shadow-lg">
             <div class="flex justify-between items-center mb-4">
-                <h2 class="font-bold text-lg flex items-center gap-2 text-green-600">
+                <h2 class="font-bold text-lg flex items-center gap-2 text-emerald-400">
                     <i class="fa-solid fa-address-book"></i> مدیریت مشتریان
                 </h2>
                 <div class="flex gap-2">
-                    <button onclick="triggerImport()" class="text-xs bg-gray-100 px-3 py-1.5 rounded-lg hover:bg-gray-200">
+                    <button onclick="triggerImport()" class="text-xs bg-slate-800 border border-slate-700 text-slate-300 px-3 py-1.5 rounded-lg hover:bg-slate-700 transition">
                         <i class="fa-solid fa-file-import"></i> ورود مخاطب
                     </button>
                     <input type="file" id="import-file" class="hidden" accept=".csv, .json" onchange="importContacts(event)">
@@ -125,33 +124,7 @@
             </div>
 
             <!-- Add Customer Form -->
-            <form id="customer-form" onsubmit="addCustomer(event)" class="space-y-3 bg-gray-50 p-3 rounded-xl mb-4">
+            <form id="customer-form" onsubmit="addCustomer(event)" class="space-y-3 bg-slate-900/50 p-3 rounded-xl border border-slate-800 mb-4">
                 <div class="grid grid-cols-2 gap-2">
-                    <input type="text" id="cust-name" placeholder="نام و نام خانوادگی" required class="p-2 border rounded-lg text-sm">
-                    <input type="tel" id="cust-phone" placeholder="شماره موبایل (09...)" required class="p-2 border rounded-lg text-sm">
-                </div>
-                <div class="grid grid-cols-2 gap-2">
-                    <div>
-                        <label class="block text-[10px] text-gray-400">تاریخ تولد</label>
-                        <input type="date" id="cust-birthday" class="w-full p-2 border rounded-lg text-sm text-gray-500">
-                    </div>
-                    <div>
-                        <label class="block text-[10px] text-gray-400">امتیاز اولیه وفاداری</label>
-                        <input type="number" id="cust-points" value="0" class="w-full p-2 border rounded-lg text-sm">
-                    </div>
-                </div>
-                <button type="submit" class="w-full bg-green-600 text-white p-2 rounded-lg text-sm font-bold">افزودن مشتری جدید</button>
-            </form>
-
-            <!-- Search and List -->
-            <div class="mb-3">
-                <input type="text" id="search" oninput="renderCustomers()" placeholder="جستجو در بین مشتریان..." class="w-full p-2 border rounded-lg text-sm">
-            </div>
-
-            <div class="max-h-60 overflow-y-auto space-y-2" id="customer-list">
-                <!-- لیست مشتریان اینجا رندر می‌شود -->
-            </div>
-        </section>
-
-        <!-- Automated Loyalty & Birthday Features -->
-        <section class="bg-
+                    <input type="text" id="cust-name" placeholder="نام و نام خانوادگی" required class="p-2.5 bg-slate-900 border border-slate-700 rounded-lg text-sm text-slate-100 focus:outline-none focus:border-emerald-500">
+                    <input type="tel" id="cust-phone" placeholder="شماره موبایل (09...)" required class
