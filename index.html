@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#2563eb">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>مشتری یار</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --bg: #f3f4f6;
+            --card: #ffffff;
+            --text: #1f2937;
+            --text-light: #6b7280;
+            --danger: #ef4444;
+            --success: #10b981;
+            --border: #e5e7eb;
+        }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Tahoma, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            padding-bottom: 85px;
+        }
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 20px 16px 24px;
+            border-radius: 0 0 24px 24px;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+        .header-top h1 {
+            font-size: 1.3rem;
+            font-weight: 800;
+        }
+        .stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 12px;
+            border-radius: 16px;
+            backdrop-filter: blur(5px);
+        }
+        .stat-box {
+            text-align: center;
+        }
+        .stat-box span {
+            font-size: 0.75rem;
+            opacity: 0.9;
+            display: block;
+            margin-bottom: 4px;
+        }
+        .stat-box strong {
+            font-size: 1.05rem;
+            font-weight: 700;
+        }
+        .container {
+            padding: 16px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .search-box {
+            position: relative;
+            margin-bottom: 16px;
+        }
+        .search-box input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            font-size: 0.95rem;
+            background: var(--card);
+            outline: none;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+        }
+        .search-box input:focus {
+            border-color: var(--primary);
+        }
+        .filter-tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+            overflow-x: auto;
+        }
+        .tab {
+            padding: 8px 16px;
+            border-radius: 20px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            font-size: 0.85rem;
+            color: var(--text-light);
+            cursor: pointer;
+            white-space: nowrap;
+        }
+        .tab.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+            font-weight: 600;
+        }
+        .customer-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .card {
+            background: var(--card);
+            border-radius: 16px;
+            padding: 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            border: 1px solid var(--border);
+            transition: transform 0.15s;
+        }
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 8px;
+        }
+        .customer-name {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--text);
+        }
+        .badge {
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        .badge-debt {
+            background: #fee2e2;
+            color: var(--danger);
+        }
+        .badge-paid {
+            background: #d1fae5;
+            color: var(--success);
+        }
+        .card-info {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 10px;
+            border-top: 1px solid var(--border);
+        }
+        .amount {
+            font-weight: 700;
+            font-size: 0.95rem;
+        }
+        .actions {
+            display: flex;
+            gap: 8px;
+        }
+        .btn-icon {
+            padding: 6px 12px;
+            border-radius: 10px;
+            border: none;
+            font-size: 0.8rem;
+            cursor: pointer;
+            font-weight: 600;
+            text-decoration: none;
+        }
+        .btn-call {
+            background: #eff6ff;
+            color: var(--primary);
+        }
+        .btn-toggle {
+            background: #f3f4f6;
+            color: var(--text);
+        }
+        .btn-delete {
+            background: #fef2f2;
+            color: var(--danger);
+        }
+        .fab {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: white;
+            border: none;
+            font-size: 2rem;
+            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.4);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 20;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 30;
+            align-items: flex-end;
+            justify-content: center;
+        }
+        .modal.open {
+            display: flex;
+        }
+        .modal-content {
+            background: var(--card);
+            width: 100%;
+            max-width: 600px;
+            border-radius: 24px 24px 0 0;
+            padding: 24px 20px;
+            animation: slideUp 0.25s ease-out;
+        }
+        @keyframes slideUp {
+            from { transform: translateY(100%); }
+            to { transform: translateY(0); }
+        }
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+        .modal-header h2 {
+            font-size: 1.15rem;
+        }
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--text-light);
+            cursor: pointer;
+        }
+        .form-group {
+            margin-bottom: 14px;
+        }
+        .form-group label {
+            display: block;
+            font-size: 0.85rem;
+            margin-bottom: 6px;
+            color: var(--text);
+            font-weight: 600;
+        }
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            font-size: 0.95rem;
+            outline: none;
+        }
+        .submit-btn {
+            width: 100%;
+            padding: 14px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 14px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 8px;
+        }
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-light);
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="header-top">
+        <h1>مشتری یار</h1>
+        <span style="font-size: 0.85rem; opacity: 0.9;" id="totalCount">۰ مشتری</span>
+    </div>
+    <div class="stats">
+        <div class="stat-box">
+            <span>مجموع طلب (بدهکاری)</span>
+            <strong id="totalDebt">۰ تومان</strong>
+        </div>
+        <div class="stat-box">
+            <span>مجموع تسویه شده</span>
+            <strong id="totalPaid">۰ تومان</strong>
+        </div>
+    </div>
+</header>
+
+<div class="container">
+    <div class="search-box">
+        <input type="text" id="searchInput" placeholder="جستجوی نام مشتری یا شماره تماس..." oninput="renderCustomers()">
+    </div>
+
+    <div class="filter-tabs">
+        <div class="tab active" onclick="setFilter('all', this)">همه مشتریان</div>
+        <div class="tab" onclick="setFilter('debt', this)">بدهکاران</div>
+        <div class="tab" onclick="setFilter('paid', this)">تسویه شده‌ها</div>
+    </div>
+
+    <div class="customer-list" id="customerList"></div>
+</div>
+
+<button class="fab" onclick="openModal()">+</button>
+
+<div class="modal" id="addModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>ثبت مشتری / سفارش جدید</h2>
+            <button class="close-btn" onclick="closeModal()">&times;</button>
+        </div>
+        <form onsubmit="addCustomer(event)">
+            <div class="form-group">
+                <label>نام و نام خانوادگی مشتری *</label>
+                <input type="text" id="cName" required placeholder="مثلاً: علی رضایی">
+            </div>
+            <div class="form-group">
+                <label>شماره تماس</label>
+                <input type="tel" id="cPhone" placeholder="مثلاً: 09123456789">
+            </div>
+            <div class="form-group">
+                <label>شرح سفارش یا خدمات</label>
+                <input type="text" id="cDesc" placeholder="مثلاً: خرید ۲ عدد محصول">
+            </div>
+            <div class="form-group">
+                <label>مبلغ (تومان) *</label>
+                <input type="number" id="cAmount" required placeholder="مثلاً: 500000">
+            </div>
+            <div class="form-group">
+                <label>وضعیت پرداخت</label>
+                <select id="cStatus">
+                    <option value="debt">بدهکار (پرداخت نشده)</option>
+                    <option value="paid">تسویه شده</option>
+                </select>
+            </div>
+            <button type="submit" class="submit-btn">ذخیره اطلاعات</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    let customers = JSON.parse(localStorage.getItem('moshtariYarData')) || [];
+    let currentFilter = 'all';
+
+    function formatPrice(num) {
+        return Number(num).toLocaleString('fa-IR') + ' تومان';
+    }
+
+    function saveData() {
+        localStorage.setItem('moshtariYarData', JSON.stringify(customers));
+        renderCustomers();
+    }
+
+    function openModal() {
+        document.getElementById('addModal').classList.add('open');
+    }
+
+    function closeModal() {
+        document.getElementById('addModal').classList.remove('open');
+    }
+
+    function setFilter(filter, el) {
+        currentFilter = filter;
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        el.classList.add('active');
+        renderCustomers();
+    }
+
+    function addCustomer(e) {
+        e.preventDefault();
+        const newCustomer = {
+            id: Date.now(),
+            name: document.getElementById('cName').value.trim(),
+            phone: document.getElementById('cPhone').value.trim(),
+            desc: document.getElementById('cDesc').value.trim(),
+            amount: Number(document.getElementById('cAmount').value),
+            status: document.getElementById('cStatus').value,
+            date: new Date().toLocaleDateString('fa-IR')
+        };
+        customers.unshift(newCustomer);
+        saveData();
+        e.target.reset();
+        closeModal();
+    }
+
+    function toggleStatus(id) {
+        const index = customers.findIndex(c => c.id === id);
+        if (index !== -1) {
+            customers[index].status = customers[index].status === 'debt' ? 'paid' : 'debt';
+            saveData();
+        }
+    }
+
+    function deleteCustomer(id) {
+        if (confirm('آیا از حذف این مورد مطمئن هستید؟')) {
+            customers = customers.filter(c => c.id !== id);
+            saveData();
+        }
+    }
+
+    function renderCustomers() {
+        const listEl = document.getElementById('customerList');
+        const search = document.getElementById('searchInput').value.toLowerCase();
+
+        let totalDebt = 0;
+        let totalPaid = 0;
+
+        customers.forEach(c => {
+            if (c.status === 'debt') totalDebt += c.amount;
+            else totalPaid += c.amount;
+        });
+
+        document.getElementById('totalCount').innerText = customers.length.toLocaleString('fa-IR') + ' مشتری';
+        document.getElementById('totalDebt').innerText = formatPrice(totalDebt);
+        document.getElementById('totalPaid').innerText = formatPrice(totalPaid);
+
+        const filtered = customers.filter(c => {
+            const matchesSearch = c.name.toLowerCase().includes(search) || c.phone.includes(search) || c.desc.toLowerCase().includes(search);
+            const matchesFilter = currentFilter === 'all' || c.status === currentFilter;
+            return matchesSearch && matchesFilter;
+        });
+
+        if (filtered.length === 0) {
+            listEl.innerHTML = '<div class="empty-state">هیچ موردی یافت نشد.<br>برای ثبت مشتری جدید دکمه + پایین صفحه را بزنید.</div>';
+            return;
+        }
+
+        listEl.innerHTML = filtered.map(c => `
+            <div class="card">
+                <div class="card-header">
+                    <div class="customer-name">${c.name}</div>
+                    <span class="badge ${c.status === 'debt' ? 'badge-debt' : 'badge-paid'}">
+                        ${c.status === 'debt' ? 'بدهکار' : 'تسویه شده'}
+                    </span>
+                </div>
+                <div class="card-info">
+                    ${c.desc ? `<div>📝 ${c.desc}</div>` : ''}
+                    <div>📅 تاریخ: ${c.date} ${c.phone ? ` | 📱 ${c.phone}` : ''}</div>
+                </div>
+                <div class="card-footer">
+                    <div class="amount">${formatPrice(c.amount)}</div>
+                    <div class="actions">
+                        ${c.phone ? `<a href="tel:${c.phone}" class="btn-icon btn-call">تماس</a>` : ''}
+                        <button class="btn-icon btn-toggle" onclick="toggleStatus(${c.id})">
+                            ${c.status === 'debt' ? 'تسویه شد' : 'بدهکار شد'}
+                        </button>
+                        <button class="btn-icon btn-delete" onclick="deleteCustomer(${c.id})">حذف</button>
+                    </div>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    renderCustomers();
+</script>
+
+</body>
+</html>
